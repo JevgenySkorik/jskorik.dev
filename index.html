@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <title>jskorik.dev</title>
+</head>
+
+<body>
+    <div class="flex h-screen w-full" id="container">
+        <div class="flex flex-col flex-1 items-center justify-center transition-all duration-500 ease-in-out"
+            id="visible_column">
+            <img src="avatar.jpg" alt="Avatar" style="width: 100px;">
+            <h1 class="my-2 text-xl">Jevgeny Skorik</h1>
+            <ul>
+                <li>about me</li>
+                <li>education</li>
+                <li>projects</li>
+            </ul>
+        </div>
+        <div class="flex-[0] flex flex-col items-center justify-center transition-all duration-500 ease-in-out overflow-scroll opacity-0"
+            id="hidden_column">
+            <div id="hidden_content" class="transition-opacity duration-500 opacity-0 text-center"></div>
+        </div>
+    </div>
+
+    <script>
+        const hidden_column = document.getElementById('hidden_column');
+        const hidden_content = document.getElementById('hidden_content');
+        const visible_column = document.getElementById('visible_column');
+        const list = document.querySelector('ul');
+
+        list.addEventListener('click', function () {
+            hidden_column.classList.add('opacity-100');
+            hidden_column.classList.add('flex-[3]');
+            visible_column.classList.replace('flex-1', 'flex-[1]');
+            visible_column.classList.add('m-1', 'p-1', 'border-1');
+            hidden_column.classList.add('m-1', 'p-1', 'border-1');
+        });
+
+        function updateHiddenContent(html) {
+            hidden_content.classList.remove('opacity-100');
+            hidden_content.classList.add('opacity-0');
+
+            setTimeout(() => {
+                hidden_content.innerHTML = html;
+                hidden_content.classList.remove('opacity-0');
+                hidden_content.classList.add('opacity-100');
+            }, 300);
+        }
+
+        // About me
+        list.children[0].addEventListener('click', function () {
+            updateHiddenContent(`
+            <p>I'm a <b>software engineer</b> from Latvia.</p>
+            <p>I've worked on a wide range of projects, but my main interest is in embedded programming.</p>
+            <p>Technical skills: <b>PHP (Laravel), Python (Flask), C/C++, GNU/Linux, Bash, REST APIs</b></p>
+            <p class="mt-3">You can find me here:</p>
+            <ul class="text-center">
+                <li><a href="https://github.com/JevgenySkorik" target="_blank" rel="noopener noreferrer">github</a></li>
+                <li><a href="https://www.linkedin.com/in/jevgenijs-skoriks-712844214/" target="_blank" rel="noopener noreferrer">linkedin</a></li>
+                <li><a href="mailto:jevgeny.skorik@gmail.com">email</a></li>
+            </ul>
+            `);
+        });
+        // Education
+        list.children[1].addEventListener('click', function () {
+            updateHiddenContent(`
+            <h1 class="text-xl"><span>Formal education</span></h1>
+            <p class="mt-3"><b>Riga Technical university</b></p>
+            <p>Bachelor's degree, Intelligent robotic systems</p>
+            <p class="mt-3"><b>Riga Technical college</b></p>
+            <p>Vocational education, Programming technician</p>
+
+            <h1 class="text-xl mt-5"><span>Certificates</span></h1>
+            <p class="mt-3"><b>Build a Modern Computer from First Principles: From Nand to Tetris</b></p>
+            <p>Constructing a modern computer, starting from basic logic gates and progressing to a fully operational general-purpose computer.</p>
+            `);
+        });
+        // Projects
+        list.children[2].addEventListener('click', function () {
+            updateHiddenContent(`
+            <h1 class="text-xl"><span>Work projects</span></h1>
+            <p class="mt-5"><b>Order processing automation</b></p>
+            <p>An API and web interface for automating and managing WHMCS SaaS order processing.</p>
+            <p class="mt-5"><b>Technical support AI assistant</b></p>
+            <p>A FastAPI-based AI assistant that uses the Mistral-7B-Instruct model to generate contextual responses.</p>
+            <p>The generated response takes into account the full message exchange, clients products and optional additional instructions.</p>
+            <p class="mt-5"><b>Client dashboard</b></p>
+            <p>A dashboard that showcases client services and facilitates their management.</p>
+            <h1 class="text-xl mt-8"><span>Personal projects</span></h1>
+            <p class="mt-5"><b>Bierkasse</b></p>
+            <p>A bookkeeping tool developed for a student corporation to keep track of sold items, debts.</p>
+            <p class="mt-5"><b>esp32 e-reader</b></p>
+            <p>An e-ink e-reader made using an esp32.</p>
+            <h1 class="text-xl mt-8"><span>Freelance projects</span></h1>
+            <p class="mt-5"><b>VG-Stock</b></p>
+            <p>An inventory management system for a warehouse made using flutter for Android and Desktop use.</p>
+            `);
+        });
+    </script>
+
+</body>
+
+</html>
